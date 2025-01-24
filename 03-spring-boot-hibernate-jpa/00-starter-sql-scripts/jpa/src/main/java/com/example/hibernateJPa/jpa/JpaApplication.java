@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 
 @SpringBootApplication
 public class JpaApplication {
@@ -25,9 +27,22 @@ public class JpaApplication {
 
 
 			// read student
-			readStudent(studentDAO);
+			//readStudent(studentDAO);
+
+			// read multiple students 
+			queryForStudents(studentDAO);
 
 		};
+	}
+
+	private void queryForStudents(StudentDAO studentDAO) {
+		// get list of student
+		List<Student> students = studentDAO.findAll();
+
+		// display list of students
+		for (Student student : students) {
+			System.out.println(student);
+		}
 	}
 
 	private void readStudent(StudentDAO studentDAO) {

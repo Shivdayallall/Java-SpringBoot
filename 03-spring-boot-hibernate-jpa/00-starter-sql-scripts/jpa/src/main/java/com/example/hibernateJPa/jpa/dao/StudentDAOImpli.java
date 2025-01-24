@@ -2,9 +2,12 @@ package com.example.hibernateJPa.jpa.dao;
 
 import com.example.hibernateJPa.jpa.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 public class StudentDAOImpli implements StudentDAO {
@@ -31,6 +34,15 @@ public class StudentDAOImpli implements StudentDAO {
     @Override
     public Student findById(Integer id) {
         return entityManager.find(Student.class, id);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        // create query
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student order by lastName", Student.class); // use the ENTITY class to query tables.
+
+        // return query result
+        return theQuery.getResultList();
     }
 
 
