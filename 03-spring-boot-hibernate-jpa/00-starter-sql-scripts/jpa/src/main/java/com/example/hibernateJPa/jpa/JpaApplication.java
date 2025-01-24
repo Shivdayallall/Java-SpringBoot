@@ -30,9 +30,28 @@ public class JpaApplication {
 			//readStudent(studentDAO);
 
 			// read multiple students 
-			queryForStudents(studentDAO);
+			//queryForStudents(studentDAO);
+
+			// update the student
+			updateStudent(studentDAO);
 
 		};
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		// retrieve the student base on student id
+		int studentId = 1;
+		System.out.println("Getting Student with the  ID: " + studentId);
+		Student myStudent = studentDAO.findById(studentId);
+
+		// update first name
+		System.out.println("Updating Student with the  ID: " + studentId);
+		myStudent.setFirstName("SCOOBY");
+		studentDAO.update(myStudent);
+
+		// display the updated name
+		System.out.println("Updated Student: " + myStudent);
+
 	}
 
 	private void queryForStudents(StudentDAO studentDAO) {
