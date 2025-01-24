@@ -33,9 +33,19 @@ public class JpaApplication {
 			//queryForStudents(studentDAO);
 
 			// update the student
-			updateStudent(studentDAO);
+			//updateStudent(studentDAO);
+
+			// delete the student
+			deleteStudent(studentDAO);
 
 		};
+	}
+
+	private void deleteStudent(StudentDAO studentDAO) {
+		// get the id
+		int studentId = 3;
+		System.out.println("Deleting student: " + studentId);
+		studentDAO.delete(studentId);
 	}
 
 	private void updateStudent(StudentDAO studentDAO) {
