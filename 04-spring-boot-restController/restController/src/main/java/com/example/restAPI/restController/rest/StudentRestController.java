@@ -3,6 +3,7 @@ package com.example.restAPI.restController.rest;
 import com.example.restAPI.restController.entity.Student;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,4 +35,11 @@ public class StudentRestController {
         return theStudents;
     }
 
+    // define an endpoint to return a student by an studentId
+    @GetMapping("/students/{studentID}")
+    public Student getStudent(@PathVariable int studentID) {
+        // the path variable in argument MUST MATCH the GetMapping name variable
+
+        return theStudents.get(studentID);
+    }
 }
