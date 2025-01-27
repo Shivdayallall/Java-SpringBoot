@@ -2,10 +2,10 @@ package com.example.restAPI.restController.rest;
 
 import com.example.restAPI.restController.entity.Student;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class StudentRestController {
 
+    private final View error;
     private List<Student> theStudents;
+
+    public StudentRestController(View error) {
+        this.error = error;
+    }
 
     // define  a postconstruct to load the student data only once
 
@@ -22,7 +27,7 @@ public class StudentRestController {
     public void loadData() {
         theStudents = new ArrayList<Student>();
         theStudents.add(new Student("Max", "load"));
-        theStudents.add(new Student("Jack", "willsen"));
+        theStudents.add(new Student("Jack", "willson"));
         theStudents.add(new Student("John", "nest"));
 
     }
@@ -40,6 +45,48 @@ public class StudentRestController {
     public Student getStudent(@PathVariable int studentID) {
         // the path variable in argument MUST MATCH the GetMapping name variable
 
+        // check the student id against the list size
+        if((studentID >= theStudents.size()) || (studentID < 0)) {
+            throw new StudentNotFound("Student not found " + studentID);
+        }
+
         return theStudents.get(studentID);
     }
+
+
+
+    // add exception handler for invalid ID
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleStudentNotFound(StudentNotFound studentNotFound) {
+        // create a student error
+        StudentErrorResponse error = new StudentErrorResponse();
+
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(studentNotFound.getMessage());
+        error.setTimestamp(System.currentTimeMillis());
+
+        // return response error
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+
+    // add exception handler for all request
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(Exception exception) {
+
+        // create a student error
+        StudentErrorResponse error = new StudentErrorResponse();
+
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage(exception.getMessage());
+        error.setTimestamp(System.currentTimeMillis());
+
+        // return response error
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+
+
+    }
+
+
+
 }
