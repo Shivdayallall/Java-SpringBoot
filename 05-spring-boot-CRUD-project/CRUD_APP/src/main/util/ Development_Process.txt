@@ -1,0 +1,9 @@
+First phase:
+set up the application to interact with the Database and READ data from the DB
+
+// Step 1
+    - Set up the database connection in the application.properties
+    - Create the Employee entity
+    - Create DOA interface
+    - Create DAO implementation
+    - Create the REST controller to use the DOA
