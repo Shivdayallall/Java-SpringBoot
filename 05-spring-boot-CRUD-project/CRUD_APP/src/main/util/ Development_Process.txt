@@ -7,3 +7,10 @@ set up the application to interact with the Database and READ data from the DB
     - Create DOA interface
     - Create DAO implementation
     - Create the REST controller to use the DOA
+
+
+Second phase:
+Set up the application to use Spring-data-rest
+    - Remove controller and service folder
+    - SDR creates all the endpoints once you implement JPA resp and creat the entity for the DB
+    - endpoints are lowercase path of the entity class but plural. add S at the end.
