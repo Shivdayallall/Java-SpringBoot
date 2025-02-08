@@ -7,8 +7,11 @@
 </head>
 <body>
 <!--user the firstName value from the name attribute of the form-->
-
+<!--ACCESS DATA FROM THE CONTROLLER DIRECTLY-->
     <p th:text="'Hello, ' + ${param.firstName} + '!'"></p>
+
+<!--ACCESS THE DATA FROM THE MODEL-->
+<P th:text="${message}"></P>
 
 </body>
 </html>
