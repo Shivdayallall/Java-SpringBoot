@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test thymeleaf</title>
+</head>
+<body>
+<!--user the firstName value from the name attribute of the form-->
+
+    <p th:text="'Hello, ' + ${param.firstName} + '!'"></p>
+
+</body>
+</html>
