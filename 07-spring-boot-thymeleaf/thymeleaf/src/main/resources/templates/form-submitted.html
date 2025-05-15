@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form submitted</title>
+</head>
+<body>
+<h1>Form submitted</h1>
+<p th:text="${student.firstName} + ' ' + ${student.lastName}"></p>
+
+<br/>
+
+<p th:text="${student.getCountry()}"></p>
+
+<br />
+
+<p th:text="${student.getFavoriteLanguage()}"></p>
+
+</body>
+</html>
