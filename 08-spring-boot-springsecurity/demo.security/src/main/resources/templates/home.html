@@ -20,6 +20,20 @@
         Role(s):  <span sec:authentication="principal.authorities"></span>
     </p>
 
+    <div sec:authorize="hasRole('manager')">
+        <!-- add link for path for manager    -->
+        <p>
+            <a th:href="@{/leaders}">Manager meeting</a>
+        </p>
+    </div>
+
+
+    <div sec:authorize="hasRole('admin')">
+        <!-- add link for path for IT ADMINS    -->
+        <p>
+            <a th:href="@{/admin}">System check</a>
+        </p>
+    </div>
 
     <!-- Add a logout button -->
     <form action="#" th:action="@{/logout}"

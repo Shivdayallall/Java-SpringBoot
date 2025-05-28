@@ -25,17 +25,28 @@ public class DemoSecurityConfig {
 
     }
 
+    // This functions deals with authentication and what data can each user access
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // this checks to make sure any request to the app is authenticated
-        http.authorizeHttpRequests(configurer -> configurer.anyRequest().authenticated())
+        http.authorizeHttpRequests(configurer -> configurer
+
+                        // this restricts users to access there level of info
+                        .requestMatchers("/").hasRole("employee")
+                        .requestMatchers("/leaders/**").hasRole("manager")
+                        .requestMatchers("/admin/**").hasRole("admin")
+
+                        // this checks to make sure any request to the app is authenticated
+                        .anyRequest().authenticated())
 
                 .formLogin(form -> form.loginPage("/showMyLoginPage").loginProcessingUrl("/authenticateTheUser").permitAll()
 
                 ).logout(logout -> logout.permitAll()
 
-                );
+                )
+                .exceptionHandling(exception -> exception.accessDeniedPage("/access-denied"));
 
         return http.build();
     }
