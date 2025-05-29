@@ -11,22 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class DemoSecurityConfig {
 
-    @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 
-        // create bean for in memory user details
-        UserDetails john = User.withUsername("john").password("{noop}test123").roles("employee").build();
-
-        UserDetails marry = User.withUsername("marry").password("{noop}test123").roles("employee", "manager").build();
-
-        UserDetails susan = User.withUsername("susan").password("{noop}test123").roles("employee", "manager", "admin").build();
-
-        return new InMemoryUserDetailsManager(john, marry, susan);
-
-    }
 
     // This functions deals with authentication and what data can each user access
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -55,3 +42,17 @@ public class DemoSecurityConfig {
 
 
 }
+// HARDCODED CODE FOR TEST USERS BEFORE WE IMPLEMENTED THE DB
+//    @Bean
+//    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+//
+//        // create bean for in memory user details
+//        UserDetails john = User.withUsername("john").password("{noop}test123").roles("employee").build();
+//
+//        UserDetails marry = User.withUsername("marry").password("{noop}test123").roles("employee", "manager").build();
+//
+//        UserDetails susan = User.withUsername("susan").password("{noop}test123").roles("employee", "manager", "admin").build();
+//
+//        return new InMemoryUserDetailsManager(john, marry, susan);
+//
+//    }
